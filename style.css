@@ -1,0 +1,235 @@
+@charset "utf-8";
+@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
+
+body{
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+
+*{
+	font-family: 'Jeju Gothic' !important;
+	font-weight: 200;
+	line-height: 2;
+}
+
+.navbar{
+	background-color:#FFC700;
+	height: 35px;
+	border-bottom: 1px solid black;
+	display: flex;
+}
+.navbar-logo{
+	float:left;
+	padding:3px;
+	width:10%;
+	text-align: center;
+	border-right: 1px solid black;
+}
+
+a{
+	color:black;
+	text-decoration: none;
+}
+
+.navbar-search{
+	width: 100%;
+	height: 100%;
+	display: flex;
+}
+
+.navbar-search-input{
+	background-color: white;
+	width:75%;
+	border-right: 1px solid black;
+}
+
+.navbar-search-input-addr{
+	background-color:white;
+	width: 30%;
+	border-right: 1px solid black;
+}
+
+.navbar-search input[type="text"]{
+	width:100%;
+	outline:none;
+	border: none;
+	height:100%;
+	background-color: white;
+}
+
+.navbar-search-submit{
+	background-color: #5551FF;
+	width: 10%;
+	text-align: center;
+	border-right: 1px solid black;
+}
+
+
+.navbar-search-submit input[type="submit"]{
+	border:0px transparent solid;
+	background-color: #5551FF;
+	height: 100%;
+	color:white;
+}
+
+.navbar-search-genre{
+	background-color:white;
+}
+
+.contents{
+	display: flex;
+	height: 100%;
+}
+
+.contents-result{
+	width: 77.6%;
+	border-right: 1px solid black;
+}
+
+.contents-recent{
+	width: 22.4%;
+	background-color: #F24E1E;
+}
+
+.each{
+	width:100%;
+	border-bottom:1px solid black;
+	padding: 15px;
+	display:flex;
+}
+.title{
+	font-size: 150%;
+	line-height: 2;
+}
+
+.genre{
+	background-color: #F24E1E;
+	padding : 3px;
+	line-height: 2;
+	color: white;
+}
+
+.img-cover{
+	width:150px;
+	height:150px;
+	margin: 15px;
+}
+
+.img-cover-thumbnail{
+	width:100%;
+	height:100%;
+	object-fit:cover;
+}
+
+.each-detail{
+	margin: 15px;
+}
+
+.address{
+	color: gray;
+	font-size: small;
+}
+
+.detail-contents{
+	width:100%;
+}
+
+iframe{
+	width:100%;
+	height:100%;
+}
+
+.detail-link{
+	text-align:center;
+	background-color:#F24E1E;
+	color:white;
+}
+
+.detail-link a{
+	color:white;
+}
+
+.index{
+	
+}
+
+.index-logo{
+	align-items:center;
+	height:30%; 
+	background-color:#FFC700; 
+	border-bottom:1px solid black;
+	padding: 40;
+}
+
+.index-search{
+	display: flex;
+	justify-content: space-between;
+	width:100%;
+	height:100%;
+}
+
+.index-search input[type="text"]{
+	width:100%;
+	outline:none;
+	border:none;
+	height:100%;
+}
+
+.index-search input[type="submit"]{
+	border: 0px transparent solid;
+	background-color: #5551FF;
+	height: 100%;
+	width: 100%;
+	color: white;
+}
+.auto{
+}
+
+.orange-box{
+	height: 340%;
+	width: 30%; 
+	background-color:#F24E1E;
+	border-right: 1px solid black;
+}
+
+.index-search-form{
+	width:100%;
+	height:fit-content;
+}
+
+.pad-15{
+	height:50px;
+	border-bottom: 1px solid black;
+}
+
+.search-button{
+	display:flex;
+}
+
+.purple{
+	background-color: #5551FF;
+}
+
+.index-recommend{
+	width:100%;
+}
+@media all and (min-width:1025px){
+}
+
+@media all and (min-width:768px) and (max-width:1024px){
+}
+
+@media all and (max-width:767px){
+	.navbar-search-submit{
+		width:25%;
+	}
+	.contents-result{
+		width:100%;
+		border-right: 0px solid transparent;
+	}
+	.contents-recent{
+		width:0%;
+	}
+}
+
