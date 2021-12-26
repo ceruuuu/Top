@@ -14,11 +14,11 @@
 <script>
 	$(function(){
 		$(".auto").autocomplete({
-	        source: "auto.php",
+	        source: "cgi-bin/auto.php",
 			minLength: 1
 		});
 	});
-
+</script>
 <?php 
 include_once 'cgi-bin/dbconn.php'; 
 
@@ -31,14 +31,13 @@ $qry = "SET character_set_client = 'utf8'"; $result= $conn->query( $qry );
 $result = mysqli_query($conn, $sql);
 ?>
 
-</script>
 
 </head>
 
 <body>
 <div class="index">
 <div class="index-logo">
-		<h1><a href="./index_html.php">톺</a></h1>
+		<h1><a href="./query.php">톺</a></h1>
 	톺다 [톱따]<br>
 	(동사) 틈이 있는 곳마다 모조리 더듬어 뒤지면서 찾다
 </div>

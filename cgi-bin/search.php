@@ -1,78 +1,127 @@
-<html>
-<head>
-	<meta charset='utf-8'>
-</head>
-<body>
-
-<form action="<?=$_SERVER['PHP_SELF']?>" method='POST'>
-	<input type='text' name='input_title' value="<?=$_POST['input_title']?>">
-	<input type='text' name='input_addr' value="<?=$_POST['input_addr']?>">
-
-	<select name="select_genre">
-		<option value=""> 전부 보기</option>
-		<option value="드로잉"> 드로잉 </option>
-		<option value="조각"> 조각 </option>
-		<option value="디자인"> 디자인 </option>
-		<option value="퍼포먼스"> 퍼포먼스 </option>
-		<option value="건축"> 건축 </option>
-		<option value="설치"> 설치 </option>
-		<option value="공예"> 공예 </option>
-		<option value="영화"> 영화 </option>
-		<option value="회화"> 회화 </option>
-		<option value="캘리그라피"> 캘리그라피 </option>
-		<option value="만화"> 만화 </option>
-		<option value="고미술"> 고미술 </option>
-		<option value="사진"> 사진 </option>
-		<option value="미디어아트"> 미디어아트 </option>
-		<option value="판화"> 판화 </option>
-		<option value="교육"> 교육 </option>
-
-	</select>
-	<input type='submit' value='필터링'>
-</form>
-
-
-
 <?php
 	include_once 'dbconn.php';
 
-	// 장르, 제목, 주소 쿼리문에 넣고
-	$select_genre = '';
+    // 장르, 제목, 주소 쿼리문에 넣고
+	$select_genre = ''; 
 	if(!empty($_POST['select_genre'])){
-		$select_genre = urldecode($_POST['select_genre']);	
-	}
+		$select_genre = urldecode($_POST['select_genre']);  
+	}   
 	$input_title = urldecode($_POST['input_title']);
 	$input_addr = urldecode($_POST['input_addr']);
-	
 	$sql = "SELECT * FROM exhibition WHERE (end_date >= now()) and (genre LIKE '%".$select_genre."%')" . " and (title LIKE '%".$input_title."%')" . "and (address LIKE '%".$input_addr."%') ORDER BY end_date ASC";
-	
 	$qry = "SET character_set_connection = 'utf8'"; $result= $conn->query( $qry );
 	$qry = "SET character_set_results = 'utf8'"; $result= $conn->query( $qry );
 	$qry = "SET character_set_client = 'utf8'"; $result= $conn->query( $qry );
-	
+
 	// 검색 결과 리스트 가져옴
 	$result = mysqli_query($conn, $sql);
-
-	while($row = mysqli_fetch_array($result)){
-		echo "<br><br>";
-		
-		// 제목 클릭하면 해당 상세 페이지로 이동
-		echo'<a href="http://cspro.sogang.ac.kr/~cse20151527/cgi-bin/each.php?id=' . $row['id'] . '">';
-		echo '<h2>' . $row['title'] .'</h2></a><br>';
-	
-		// 아트허브인 경우 이미지 클릭하면 상세 페이지 이동
-		if(strpos($row['link'], 'arthub') !== false){
-			echo '<a href="http://cspro.sogang.ac.kr/~cse20151527/cgi-bin/each.php?id=' . $row['id'] . '">';
-			echo '<img src="' . $row['poster_img'] . '" width="300"><br>';
-			echo '</a>';
-		}
-		
-		// 그 외에는 바로바로 꺼내쓰면 될듯합니다
-		echo $row['genre'].'<br>';
-		echo $row['address'].'<br>';
-		echo $row['start_date'].' ~ '.$row['end_date'].'<br>';
-	}
-
 ?>
+<html>
+<head>
+
+<title>톺</title>
+
+<link rel="stylesheet" href="../style.css">
+<meta name="viewport" content="width=device-width, initial scale=1.0">
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+<script>
+    $(function(){
+        $(".auto").autocomplete({
+            source: "auto.php",
+            minLength: 1
+        });
+    });
+</script>
+
+</head>
+
+
+<body>
+<div class="navbar">
+	<div class="navbar-logo">
+		<a href="../query.php">톺</a>
+	</div>
+	<form class="navbar-search" action="<?=$_SERVER['PHP_SELF']?>" method='POST'>
+		<div class="navbar-search-input">
+			<input type='text' class='auto' name='input_title' placeholder="전시 톺아보기" value="<?=$_POST['input_title']?>">	
+		</div>
+		<div class="navbar-search-input-addr">
+			<input type='text' name='input_addr' placeholder="주소" value="<?=$_POST['input_addr']?>">
+		</div>
+		<div class="navbar-search-genre">
+			<select name="select_genre">
+				<?php if(empty($_POST['select_genre'])) $_POST['select_genre']="";?>
+			    <option value="" <?php if($_POST['select_genre']=="") echo 'selected'; ?>> 모든 장르</option>
+				<option value="드로잉" <?php if($_POST['select_genre']=="드로잉") echo 'selected'; ?>> 드로잉 </option>
+				<option value="조각"<?php if($_POST['select_genre']=="조각") echo 'selected'; ?> > 조각 </option>
+				<option value="디자인"<?php if($_POST['select_genre']=="디자인") echo 'selected'; ?> > 디자인 </option>
+				<option value="퍼포먼스"<?php if($_POST['select_genre']=="퍼포먼스") echo 'selected'; ?> > 퍼포먼스 </option>
+				<option value="건축"<?php if($_POST['select_genre']=="건축") echo 'selected'; ?> > 건축 </option>
+				<option value="설치"<?php if($_POST['select_genre']=="설치") echo 'selected'; ?> > 설치 </option>
+				<option value="공예"<?php if($_POST['select_genre']=="공예") echo 'selected'; ?> > 공예 </option>
+				<option value="영화"<?php if($_POST['select_genre']=="영화") echo 'selected'; ?> > 영화 </option>
+				<option value="회화"<?php if($_POST['select_genre']=="회화") echo 'selected'; ?> > 회화 </option>
+				<option value="캘리그라피"<?php if($_POST['select_genre']=="캘리그라피") echo 'selected'; ?> > 캘리그라피 </option>
+				<option value="만화"<?php if($_POST['select_genre']=="만화") echo 'selected'; ?> > 만화 </option>
+				<option value="고미술"<?php if($_POST['select_genre']=="고미술") echo 'selected'; ?> > 고미술 </option>
+				<option value="사진"<?php if($_POST['select_genre']=="사진") echo 'selected'; ?> > 사진 </option>
+				<option value="미디어아트"<?php if($_POST['select_genre']=="미디어아트") echo 'selected'; ?> > 미디어아트 </option>
+				<option value="판화"<?php if($_POST['select_genre']=="판화") echo 'selected'; ?> > 판화 </option>
+				<option value="교육"<?php if($_POST['select_genre']=="교육") echo 'selected'; ?> > 교육 </option>
+			</select>
+		</div>
+		<div class="navbar-search-submit">
+			<input type="submit" value="search">
+		</div>
+	</form>
+</div>
+
+<div class="remain">
+<div class="contents">
+<div class="contents-result">
+	<?php while($row = mysqli_fetch_array($result)){ ?>
+	<div class="each" onclick="location.href='<?php echo "http://cspro.sogang.ac.kr/~cse20151527/cgi-bin/each.php?id=".$row['id'] ?>'">
+		<?php if (strpos($row['link'], 'arthub') !== false){ ?>
+		<div style="display:flex; align-items:center;">
+			<div class="img-cover">
+			<?php echo "<img src=".
+				$row['poster_img']." class='img-cover-thumbnail'>";?>
+			</div>
+		</div>
+		<?php } ?>
+		<div class="each-detail">
+			<span class="genre">
+				<?php echo $row['genre'];?>
+			</span>
+		
+			<div class="title">
+				<?php echo $row['title'];?><br>
+			</div>
+
+			<div class="venue">
+				<?php echo $row['venue'];?><br>
+			</div>
+
+			<div class="address">
+				<?php echo $row['address'];?><br>
+			</div>
+			
+			<div class="date">
+			<?php echo date("Y/m/d", strtotime($row['start_date']))
+					." - ".
+					date("Y/m/d", strtotime($row['end_date']));?><br>
+			</div>
+		</div>
+	</div>
+	<?php } ?>
+</div>
+<div class="contents-recent">
+
+</div>
+</div>
+</div>
 </body>
 </html>
